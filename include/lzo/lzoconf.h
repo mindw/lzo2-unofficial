@@ -216,6 +216,18 @@ LZO_COMPILE_TIME_ASSERT_HEADER(sizeof(char *)   == sizeof(lzo_bytep))
 #  define __LZO_CDECL           __lzo_cdecl
 #endif
 
+#if !defined(LZO_SHARED_STATIC_DEFINE)
+#  ifndef LZO_SHARED_EXPORT
+#    ifdef lzo_shared_EXPORTS
+        /* We are building this library */
+#      define __LZO_EXPORT1 __declspec(dllexport)
+#    else
+        /* We are using this library */
+#      define __LZO_EXPORT1 __declspec(dllimport)
+#    endif
+#  endif
+#endif
+
 /* DLL export information */
 #if !defined(__LZO_EXPORT1)
 #  define __LZO_EXPORT1         /*empty*/
